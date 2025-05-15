@@ -52,6 +52,33 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Frontend: Payment Page (`src/app/page.tsx`)
+
+The main page of this application is rendered by `src/app/page.tsx`. This is a Next.js client component that provides a user interface for initiating payments.
+
+Key functionalities include:
+
+*   **Payment Form:** Presents a form to the user to collect:
+    *   Customer ID (auto-generated and displayed as read-only)
+    *   Payment Amount (in USD)
+    *   Customer Email
+*   **Input Validation:** Performs basic client-side validation for the required fields and amount.
+*   **API Interaction:** On form submission, it sends a POST request to the `/api/initiate-payment` endpoint with the payment details.
+*   **User Feedback:** Displays toast notifications to inform the user about the status of the payment initiation (e.g., success, error, redirection).
+*   **Redirection:** If the payment initiation is successful and a payment URL is provided by the API, it can open this URL in a new tab for the user to complete the payment.
+
+## API Endpoints
+
+This project exposes the following API endpoints, which are defined under `src/app/api/`:
+
+*   **`/api/initiate-payment`**
+    *   **File:** `src/app/api/initiate-payment/route.ts`
+    *   **Purpose:** Handles the initiation of a payment process. This endpoint is typically called from the frontend to start a new payment transaction by interacting with the Payram server. It will create a record in the payram server and it will return you a url to redirect the user to the payram server.
+
+*   **`/api/v1/payment/webhook`**
+    *   **File:** `src/app/api/v1/payment/webhook/route.ts`
+    *   **Purpose:** Receives asynchronous webhook notifications from the Payram server. These webhooks provide updates on the status of payment transactions to this Backend Server.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
